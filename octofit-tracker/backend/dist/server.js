@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const database_1 = require("./config/database");
 const models_1 = require("./models");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
@@ -44,7 +45,7 @@ app.get('/api/workouts/', async (_req, res) => {
     const workouts = await models_1.Workout.find({}).lean();
     res.json(workouts);
 });
-(0, models_1.connectToDatabase)(mongoUri)
+(0, database_1.connectToDatabase)(mongoUri)
     .then(() => {
     console.log('Connected to MongoDB');
     app.listen(port, () => {
